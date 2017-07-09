@@ -1,0 +1,43 @@
+html, body{
+	background-color:#102323;	
+	padding:0;
+	margin:0;
+	height:100vh;
+	overflow-x:hidden;
+	
+}
+.wrapper{
+	position:absolute;
+	display:flex;
+	transition: .5s ease;
+}
+
+.img_container{
+	display:inline-block;
+	padding-top:15vh;
+	width:100vw;
+	height:80vh;
+	position:relative;
+	float:left;
+}
+
+.img_container img{
+	display:inline-block;
+	display:flex;
+	margin-left:auto;
+	margin-right:auto;
+	width:50vw;
+	height:50vw;
+	
+	
+}
+/*
+.caption{
+	background-color:grey;
+	height:20vh;
+}
+*/
+a{
+	text-decoration: none;
+	color:white;
+}

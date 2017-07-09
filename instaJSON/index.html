@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Droid+Sans" rel="stylesheet">
+
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="wrapper">
+			<div class="instructions" id="instructions">
+				<h2>1. Enter your username</h2>
+				<h2>2. Select your style of choice</h2>
+				<h2>3. Copy and paste code onto your website/blog</h2>
+				<span id ="clickSpan" onclick="dropDown()"><p>instructions</p></span>
+
+			</div>
+			<div class="options">
+				<input id="inputUser" type="text" placeholder="your username" required>
+				<div class="table">
+					<ul class="style_switcher">
+						<a href="#" id="carousel"rel="styles/carousel.css" onclick="changeCSS(this.id)"><li>Carousel</li></a>
+						<a href="#" id="grid" rel="styles/grid.css" onclick="changeCSS(this.id)"><li>Grid</li></a>
+						<a href="#" id="dissolve" rel="styles/dissolve.css" onclick="changeCSS(this.id)"><li>Dissolve</li></a>
+					</ul>
+					
+				</div>
+			</div>
+			<iframe id="iframe1" src="getImages.php" width="100%" height="60%"></iframe>
+						<textarea id="setLink" placeholder="link" readonly></textarea>
+
+		</div>
+		<script type="text/javascript">
+			
+			function dropDown(){
+				var instructions = document.getElementById('instructions');
+				if (instructions.style.marginTop == "-180px"){
+					instructions.style.marginTop = "0px";
+				}
+				else{
+					instructions.style.marginTop="-180px";
+
+				}
+			}
+			
+			
+			function changeCSS(clicked_Id){
+				var setLink = document.getElementById('setLink');
+				var userName = document.getElementById('inputUser').value;
+
+				if (clicked_Id === "carousel"){
+					window.frames[0].document.head.innerHTML =	'<link rel="stylesheet" href="styles/carousel.css">';
+					 setLink.value = '<iframe src="http://itsseanl.com/instaGallery/carousel.php?' + userName +'" width="100%" height="60%"></iframe>';
+					 setLink.reload();
+					
+
+				}
+				if (clicked_Id === "grid"){
+					window.frames[0].document.head.innerHTML =	'<link rel="stylesheet" href="styles/grid.css">';
+					 setLink.value = '<iframe src="http://itsseanl.com/instaGallery/grid.php?' + userName +'" width="100%" height="60%"></iframe>';
+					 setLink.reload();
+				
+
+				}
+				if (clicked_Id === "dissolve"){
+				window.frames[0].document.head.innerHTML =	'<link rel="stylesheet" href="styles/dissolve.css">';
+					 setLink.value = '<iframe src="http://itsseanl.com/instaGallery/dissolve.php?' + userName +'" width="100%" height="60%"></iframe>';
+					 setLink.reload();
+				
+
+				}
+			}
+			
+			document.getElementById('inputUser').onkeypress = 
+			function(e){
+				if(!e) e = window.event;
+					var keyCode = e.keyCode || e.which;
+				if(keyCode =='13'){
+				 sendUserName();
+				return false;
+				}
+			}
+		
+			function sendUserName(){
+				var userName = document.getElementById('inputUser').value;
+				var xhr = new XMLHttpRequest();
+				var params = "instaUser=" + userName;
+				xhr.open('POST', 'setSession.php', true);
+				    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+				xhr.send(params);
+				document.getElementById('iframe1').src = "getImages.php";
+				window.frames[0].location.reload();
+			}
+			
+		</script>
+	</body>
+</html>

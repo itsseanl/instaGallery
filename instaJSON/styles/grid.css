@@ -1,0 +1,31 @@
+html, body{
+	background-color:#102323;	
+	padding:0;
+	margin:0;
+	height:100vh;
+	overflow-x:auto;
+	
+}
+.wrapper{
+	position:absolute;
+}
+
+.img_container{
+	display:inline-block;
+	padding:1vw;
+	
+	position:relative;
+	float:left;
+}
+
+.img_container img{
+	display:inline-block;
+	width:23vw;
+	height:23vw;
+	
+	
+}
+
+:hover{
+	
+}
