@@ -15,31 +15,32 @@ $user = $_SESSION['user'];
 		<?php
 
 	$arrContextOptions=array(
-    "ssl"=>array(
-        "verify_peer"=>false,
-        "verify_peer_name"=>false,
-    ),
-);  
+    		"ssl"=>array(
+    		    "verify_peer"=>false,
+    		    "verify_peer_name"=>false,
+    		),
+	);  
 
-$x = 1;
+	//get user profile information in JSON format
 	$instaFeed = file_get_contents("https://www.instagram.com/".$user."/media/", false, stream_context_create($arrContextOptions));
-		$feedObject = json_decode($instaFeed, true);
-			if(isset($feedObject['items'])) {
-				foreach ($feedObject['items'] as $item) {
-					$link = $item['link'];
-					$img_url = $item['images']['standard_resolution']['url'];
-					?>
-					<div class="img_container">
-						<a href="<?php echo $link;?>" target="_blank" class ="instagram-post">
-							<img class="imgs" src="<?php echo $img_url; ?>">
-							<div class="caption"> <?php echo $caption; ?></div>
-						</a>
-					</div>
-					<?php
-					}
+	//parse JSON
+	$feedObject = json_decode($instaFeed, true);
+		if(isset($feedObject['items'])) {
+			//foreach image, get image link and image url
+			foreach ($feedObject['items'] as $item) {
+				$link = $item['link'];
+				$img_url = $item['images']['standard_resolution']['url'];
+				?>
+				<div class="img_container">
+					<a href="<?php echo $link;?>" target="_blank" class ="instagram-post">
+						<img class="imgs" src="<?php echo $img_url; ?>">
+					</a>
+				</div>
+				<?php
 			}
-			session_abort();
-?>	
+		}
+		session_abort();
+	?>	
 	</div>
 	<script type="text/javascript">
 
@@ -51,6 +52,8 @@ $x = 1;
 		var i = 0;
 		var len = getImages.length;
 		
+		//check CSS style
+		//allows preview page to reset css style depending on the style selected
 		setInterval(function checkStyle(){
 			newLinks = document.getElementsByTagName('link');
 			if (links[0] != newLinks[0])
